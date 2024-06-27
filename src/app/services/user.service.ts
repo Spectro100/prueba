@@ -10,7 +10,12 @@ export class UserService {
 
   addUser(user: User)
   {
+    user.id = this.db.createId();
     const userRef = this.db.collection('users');
     return userRef.add(user);
+  }
+
+  getAllUsers(){
+    return this.db.collection('/users').snapshotChanges();
   }
 }
