@@ -1,0 +1,23 @@
+<mat-sidenav-container autosize>
+    <mat-sidenav #sidenav mode="side" opened="expanded">
+        <mat-nav-list>
+            <mat-list-item (click)="expanded = !expanded">
+                <mat-icon mat-list-icon class="chevron-button" [ngClass]="{ rotated: expanded }">chevron_right</mat-icon>
+            </mat-list-item>
+
+            <mat-list-item>
+                <mat-icon mat-list-icon>home</mat-icon>
+                <span *ngIf="expanded" class="menu-item">Home</span>
+            </mat-list-item>
+        </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+        <app-header></app-header>
+        <div class="content">
+            <app-userform></app-userform>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>
+
+<app-footer></app-footer>
