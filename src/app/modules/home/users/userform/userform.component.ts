@@ -12,8 +12,8 @@ import { Router } from '@angular/router';
 export class UserformComponent {
   user: User = {
     id: '',
-    firstName: '', 
-    lastName: '', 
+    name: '',
+    address: '', 
     cellphone: '', 
     email: '',
     password: '',

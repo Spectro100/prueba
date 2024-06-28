@@ -12,7 +12,8 @@ import Swal from 'sweetalert2';
 })
 export class UserlistComponent {
   userList: User[] = [];
-  columns: string[] = ['firstName', 'lastName', 'cellphone', 'email', 
+  filterContent: string = '';
+  columns: string[] = ['name','address', 'cellphone', 'email', 
     'department', 'actions'];
   dataSource = new MatTableDataSource(this.userList);
 
