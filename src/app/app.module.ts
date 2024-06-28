@@ -23,7 +23,8 @@ import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { FormsModule } from '@angular/forms';
 import { FIREBASE_OPTIONS } from '@angular/fire/compat';
-import {MatTableModule} from '@angular/material/table'; 
+import {MatTableModule} from '@angular/material/table';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import {MatTableModule} from '@angular/material/table';
     MatInputModule,
     FormsModule,
     MatTableModule,
+    MatTooltipModule,
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideFirestore(() => getFirestore())
   ],
