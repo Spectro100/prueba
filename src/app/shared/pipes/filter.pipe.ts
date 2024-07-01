@@ -6,6 +6,6 @@ import { User } from "src/app/models/userform.model";
 })
 export class FilterPipe implements PipeTransform {
     public transform(user: User[], filter: string): User[] {
-        return user.filter(user => user.name.includes(filter));
+        return user.filter(user => user.name.toLowerCase().includes(filter.toLowerCase()));
     }
 }

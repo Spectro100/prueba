@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
-import {User} from 'src/app/models/userform.model';
+import { Component, ViewChild } from '@angular/core';
 import Swal from 'sweetalert2';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
+import { FormControl, FormGroup, Validators, FormGroupDirective } from '@angular/forms';
 
 @Component({
   selector: 'app-userform',
@@ -10,15 +10,20 @@ import { Router } from '@angular/router';
   styleUrls: ['./userform.component.css']
 })
 export class UserformComponent {
-  user: User = {
-    id: '',
-    name: '',
-    address: '', 
-    cellphone: '', 
-    email: '',
-    password: '',
-    department: ''
-  };
+  user: FormGroup = new FormGroup({});
+
+  formInit()
+  {
+    this.user = new FormGroup({
+      id: new FormControl(''),
+      name: new FormControl('', [Validators.required, Validators.minLength(3)]),
+      address: new FormControl('', Validators.required),
+      cellphone: new FormControl('', [Validators.required, Validators.minLength(10)]),
+      email: new FormControl('', [Validators.email, Validators.required]),
+      password: new FormControl('', [Validators.required, Validators.minLength(8)]),
+      department: new FormControl('', Validators.required)
+    });
+  }
 
   hide: boolean = true;
 
@@ -26,7 +31,7 @@ export class UserformComponent {
     toast: true,
     position: "top-end",
     showConfirmButton: false,
-    timer: 3000,
+    timer: 4000,
     timerProgressBar: true,
     didOpen: (toast) => {
       toast.onmouseenter = Swal.stopTimer;
@@ -35,21 +40,23 @@ export class UserformComponent {
   });
 
   constructor(private userService: UserService, private router: Router) {
+    this.formInit();
+
     if (this.router.getCurrentNavigation()?.extras !== undefined)
       if (this.router.getCurrentNavigation()?.extras?.state !== undefined)
-        this.user = this.router.getCurrentNavigation()?.extras?.state?.['userInfo'];
-
-    console.log(this.user);
+        this.user.setValue(this.router.getCurrentNavigation()?.extras?.state?.['userInfo']);
   }
 
-  async addUser()
+  async addUser(formDirective: FormGroupDirective)
   {
     try {
-      await this.userService.addUser(this.user).then(() => {
+      await this.userService.addUser(this.user.value).then(() => {
         this.toaster.fire({
           icon: "success",
           title: "User added succesfully"
         });
+        this.formInit();
+        formDirective.resetForm();
       });
     }
     catch (error) {
@@ -64,7 +71,7 @@ export class UserformComponent {
   async editUser()
   {
     try {
-      this.userService.editUser(this.user).then((res) => {
+      this.userService.editUser(this.user.value).then((res) => {
         this.toaster.fire({
           icon: "success",
           title: "User info updated succesfully"

@@ -1,40 +1,65 @@
-<mat-form-field class="fields" style="width: 30%;">
-    <mat-label>Full Name</mat-label>
-    <input matInput [(ngModel)]="user.name">
-</mat-form-field>
+<form [formGroup]="user" #formDirective="ngForm">
+    <mat-form-field class="fields" style="width: 30%;">
+        <mat-label>Full Name</mat-label>
+        <input matInput formControlName="name">
+        <mat-error *ngIf="user.controls['name'].errors?.['required']">This field is required</mat-error>
+        <mat-error *ngIf="user.controls['name'].errors?.['minlength']">Name must have at least 3 characters</mat-error>
+    </mat-form-field>
+    
+    <mat-form-field class="fields" style="width: 30%;">
+        <mat-label>Address</mat-label>
+        <input matInput formControlName="address">
+        <mat-icon matSuffix>house</mat-icon>
+        <mat-error *ngIf="user.controls['address'].errors?.['required']">This field is required</mat-error>
+    </mat-form-field>
+    
+    <mat-form-field class="fields">
+        <mat-label>Phone Number</mat-label>
+        <mat-icon matSuffix>phone</mat-icon>
+        <input matInput maxlength="10" formControlName="cellphone">
+        <mat-error *ngIf="user.controls['cellphone'].errors?.['required']">This field is required</mat-error>
+        <mat-error *ngIf="user.controls['cellphone'].errors?.['minlength']">Cellphone must have 10 digits</mat-error>
+    </mat-form-field>
 
-<mat-form-field class="fields" style="width: 30%;">
-    <mat-label>Address</mat-label>
-    <input matInput [(ngModel)]="user.address">
-</mat-form-field><br>
+    <br>
+    
+    <mat-form-field class="fields" style="width: 20%;">
+        <mat-label>Email</mat-label>
+        <mat-icon matSuffix>email</mat-icon>
+        <input type="email" matInput formControlName="email">
+        <mat-error *ngIf="user.controls['email'].errors?.['email']">Email is not valid</mat-error>
+        <mat-error *ngIf="user.controls['email'].errors?.['required']">This field is required</mat-error>
+    </mat-form-field>
+    
+    <mat-form-field class="fields" style="width: 20%;">
+        <mat-label>Password</mat-label>
+        <input matInput formControlName="password" [type]="hide ? 'password' : 'text'"/>
+        <button
+          mat-icon-button
+          matSuffix
+          (click)="clickEvent()"
+          [attr.aria-label]="'Hide password'"
+        >
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error *ngIf="user.controls['password'].errors?.['required']">This field is required</mat-error>
+        <mat-error *ngIf="user.controls['password'].errors?.['minlength']">Password must be at least 8 characters long</mat-error>
+    </mat-form-field>
+    
 
-<mat-form-field class="fields">
-    <mat-label>Cellphone</mat-label>
-    <input matInput [(ngModel)]="user.cellphone">
-</mat-form-field>
+    <mat-form-field>
+        <mat-label>Department</mat-label>
+        <mat-select formControlName="department">
+            <mat-option value="Ti">Ti</mat-option>
+            <mat-option value="Legal">Legal</mat-option>
+            <mat-option value="HR">HR</mat-option>
+            <mat-option value="Maintenance">Maintenance</mat-option>
+        </mat-select>
+        <mat-error *ngIf="user.controls['department'].errors?.['required']">This field is required</mat-error>
+    </mat-form-field>
 
-<mat-form-field class="fields" style="width: 15%;">
-    <mat-label>Email</mat-label>
-    <input type="email" matInput [(ngModel)]="user.email">
-</mat-form-field>
-
-<mat-form-field class="fields" style="width: 20%;">
-    <mat-label>Password</mat-label>
-    <input matInput [(ngModel)]="user.password" [type]="hide ? 'password' : 'text'"/>
-    <button
-      mat-icon-button
-      matSuffix
-      (click)="clickEvent()"
-      [attr.aria-label]="'Hide password'"
-    >
-      <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-    </button>
-</mat-form-field>
-
-<mat-form-field>
-    <mat-label>Department</mat-label>
-    <input matInput [(ngModel)]="user.department">
-</mat-form-field><br>
-
-<button *ngIf="user.id == ''" mat-flat-button color="primary" (click)="addUser()">Add User</button>
-<button *ngIf="user.id != ''" mat-flat-button color="primary" (click)="editUser()">Edit User</button>
+    <br>
+    
+    <button [disabled]="user.invalid" *ngIf="user.value.id == ''" mat-flat-button color="primary" (click)="addUser(formDirective)">Add User</button>
+    <button [disabled]="user.invalid" *ngIf="user.value.id != ''" mat-flat-button color="primary" (click)="editUser()">Edit User</button>
+</form>

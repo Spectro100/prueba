@@ -56,7 +56,9 @@ export class UserlistComponent {
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!"
+      confirmButtonText: "Yes, delete it!",
+      scrollbarPadding: false,
+      heightAuto: false
     }).then((result) => {
 
       if (result.isConfirmed)
@@ -66,7 +68,9 @@ export class UserlistComponent {
           Swal.fire({
             title: "Deleted!",
             text: "User deleted.",
-            icon: "success"
+            icon: "success",
+            scrollbarPadding: false,
+            heightAuto: false
           });
 
           console.log(res);
@@ -76,7 +80,9 @@ export class UserlistComponent {
           Swal.fire({
             title: "Error!",
             text: "User could not be deleted.",
-            icon: "error"
+            icon: "error",
+            scrollbarPadding: false,
+            heightAuto: false
           });
 
           console.error(error);
