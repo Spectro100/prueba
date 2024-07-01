@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './modules/home/home.component';
 import { UserformComponent } from './modules/home/users/userform/userform.component';
 import { UserlistComponent } from './modules/home/users/userlist/userlist.component';
+import { LoginComponent } from './modules/login/login/login.component';
+import { authGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -11,8 +13,18 @@ const routes: Routes = [
     children: [
       {path: 'userform', component: UserformComponent},
       {path: 'userlist', component: UserlistComponent}
-    ]
+    ],
+    canActivate: [authGuard],
   },
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
+    path: '**',
+    redirectTo: 'login',
+    pathMatch: 'full'
+  }
 ];
 
 @NgModule({

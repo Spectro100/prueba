@@ -30,6 +30,8 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { HighlightDirective } from './shared/directives/highlight.directive';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import {MatSelectModule} from '@angular/material/select';
+import { LoginComponent } from './modules/login/login/login.component';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 
 @NgModule({
@@ -41,7 +43,8 @@ import {MatSelectModule} from '@angular/material/select';
     UserformComponent,
     UserlistComponent,
     FilterPipe,
-    HighlightDirective
+    HighlightDirective,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
