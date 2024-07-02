@@ -1,27 +1,23 @@
 # Prueba
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.14.
+Este proyecto fue generado con Angular CLI version 16.2.14.
+Si tiene problemas con la compatibilidad del CLI asegurese de usar una version de Node que se encuentre en el rango de 16.14.0 y 18.10.0.
+Para mas informacion puede visitar https://angular.dev/reference/versions.
 
-## Development server
+## Pre-requisitos
+Tener Node.js instalado (https://nodejs.org/en/download/package-manager)
+Instalar el CLI de Angular. Ejecute el comando `npm install -g @angular/cli@16.2.14` en la terminal o consola de su sistema.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Como iniciarlo
+Ejecute `npm install` en la carpeta raiz del proyecto para comenzar la instalacion de dependencias.
+Una vez terminada la instalación de dependencias ejecute el comando `ng serve` para iniciar el servidor de desarrollo.
+Una vez iniciado el servidor de desarrollo vaya a su navegador de preferencia y visite la pagina `localhost:4200`.
+En caso de que el servidor de desarrollo haya iniciado pero no pueda visualizar la pagina verifique el puerto en el que se inicalizo el servidor.
 
-## Code scaffolding
+## Dentro de la aplicacion
+La primer pantalla que visualiza el usuario es la de login. Si se tiene una cuenta ya registrada basta con ingresar las credenciales e iniciar sesion,
+puede usar las credenciales email: `prueba@prueba.com` y contraseña: `12345678`.
+En caso de no tener una cuenta puede hacer click en el texto `Create a new account` para crear una nueva cuenta.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Una vez dentro de la aplicacion puede desplazarse usando el navbar ubicado en la parte izquierda de la pagina.
+La directiva Highlight solo se utiliza en el titulo del Header.
