@@ -1,0 +1,28 @@
+<app-header></app-header>
+<mat-sidenav-container autosize>
+    <mat-sidenav #sidenav mode="side" opened="expanded">
+        <mat-nav-list>
+            <mat-list-item (click)="expanded = !expanded">
+                <mat-icon mat-list-icon class="chevron-button" [ngClass]="{ rotated: expanded }">chevron_right</mat-icon>
+            </mat-list-item>
+
+            <mat-list-item [routerLink]="'userform'">
+                <mat-icon mat-list-icon>edit</mat-icon>
+                <span *ngIf="expanded" class="menu-item">User Form</span>
+            </mat-list-item>
+
+            <mat-list-item [routerLink]="'userlist'">
+                <mat-icon mat-list-icon>group</mat-icon>
+                <span *ngIf="expanded" class="menu-item">User LIst</span>
+            </mat-list-item>
+        </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+        <div class="content">
+            <router-outlet></router-outlet>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>
+
+<app-footer></app-footer>
