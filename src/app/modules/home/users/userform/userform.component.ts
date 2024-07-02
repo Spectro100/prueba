@@ -27,18 +27,6 @@ export class UserformComponent {
 
   hide: boolean = true;
 
-  toaster = Swal.mixin({
-    toast: true,
-    position: "top-end",
-    showConfirmButton: false,
-    timer: 4000,
-    timerProgressBar: true,
-    didOpen: (toast) => {
-      toast.onmouseenter = Swal.stopTimer;
-      toast.onmouseleave = Swal.resumeTimer;
-    }
-  });
-
   constructor(private userService: UserService, private router: Router) {
     this.formInit();
 
@@ -49,47 +37,68 @@ export class UserformComponent {
 
   async addUser(formDirective: FormGroupDirective)
   {
-    try {
-      await this.userService.addUser(this.user.value).then(() => {
-        this.toaster.fire({
+    Swal.fire({
+      text: "Please wait",
+      didOpen: () => Swal.showLoading(),
+      scrollbarPadding: false,
+      heightAuto: false
+    });
+
+    await this.userService.addUser(this.user.value)
+      .then(() => {
+        Swal.fire({
+          title: "Success!",
+          text: "User succesfully added.",
           icon: "success",
-          title: "User added succesfully"
+          scrollbarPadding: false,
+          heightAuto: false
         });
+
         this.formInit();
         formDirective.resetForm();
+      })
+      .catch((error) => {
+        Swal.fire({
+          title: "Error!",
+          text: "User could not be added.",
+          icon: "error",
+          scrollbarPadding: false,
+          heightAuto: false
+        });
+        console.error(error);
       });
-    }
-    catch (error) {
-      this.toaster.fire({
-        icon: "error",
-        title: "User could not be added"
-      });
-      console.error(error);
-    }
   }
 
   async editUser()
   {
-    try {
-      this.userService.editUser(this.user.value).then((res) => {
-        this.toaster.fire({
-          icon: "success",
-          title: "User info updated succesfully"
-        });
+    Swal.fire({
+      text: "Please wait",
+      didOpen: () => Swal.showLoading(),
+      timer: 10000,
+      scrollbarPadding: false,
+      heightAuto: false
+    });
 
-        console.log(res);
+    await this.userService.editUser(this.user.value)
+    .then(() => {
+      Swal.fire({
+        title: "Success!",
+        text: "User succesfully updated.",
+        icon: "success",
+        scrollbarPadding: false,
+        heightAuto: false
       });
-    }
-    catch (error) {
-      this.toaster.fire({
+    })
+    .catch((error) => {
+      Swal.fire({
+        title: "Error!",
+        text: "User could not be updated.",
         icon: "error",
-        title: "User info could not be updated"
+        scrollbarPadding: false,
+        heightAuto: false
       });
       console.error(error);
-    }
-  }
+    });
 
-  clickEvent() {
-    this.hide = !this.hide;
   }
 }

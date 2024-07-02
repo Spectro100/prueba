@@ -31,7 +31,7 @@ import { HighlightDirective } from './shared/directives/highlight.directive';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import {MatSelectModule} from '@angular/material/select';
 import { LoginComponent } from './modules/login/login/login.component';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { SignupComponent } from './modules/login/signup/signup.component';
 
 
 @NgModule({
@@ -44,7 +44,8 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
     UserlistComponent,
     FilterPipe,
     HighlightDirective,
-    LoginComponent
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,

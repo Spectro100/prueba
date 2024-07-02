@@ -21,6 +21,14 @@ export class UserlistComponent {
 
   ngOnInit()
   {
+    Swal.fire({
+      text: "Please wait",
+      didOpen: () => Swal.showLoading(),
+      scrollbarPadding: false,
+      timer: 2000,
+      heightAuto: false
+    });
+
     this.getUsers();
   }
 
@@ -37,7 +45,13 @@ export class UserlistComponent {
         this.dataSource = new MatTableDataSource(this.userList);
       },
       error: (e) => {
-        console.error(e);
+        Swal.fire({
+          title: "Error!",
+          text: "Could not get data.",
+          icon: "error",
+          scrollbarPadding: false,
+          heightAuto: false
+        });
       }
     });
   }
@@ -63,6 +77,13 @@ export class UserlistComponent {
 
       if (result.isConfirmed)
       {
+        Swal.fire({
+          text: "Please wait",
+          didOpen: () => Swal.showLoading(),
+          scrollbarPadding: false,
+          heightAuto: false
+        });
+
         this.userService.deleteUser(user)
         .then((res) => {
           Swal.fire({

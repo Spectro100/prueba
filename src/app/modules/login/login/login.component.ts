@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LoginService } from 'src/app/services/login.service';
+import { AuthService } from 'src/app/services/auth.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -15,15 +15,22 @@ export class LoginComponent {
     password: new FormControl('', [Validators.required, Validators.minLength(8)])
   });
 
-  signUp: boolean = false;
+  hide: boolean = true;
 
-  constructor(private loginService: LoginService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   login() {
-    this.loginService.login(this.loginForm.value)
+    Swal.fire({
+      text: "Please wait",
+      didOpen: () => Swal.showLoading(),
+      scrollbarPadding: false,
+      heightAuto: false
+    });
+
+    this.authService.login(this.loginForm.value)
       .then(res => {
+        Swal.close();
         this.router.navigate(['']);
-        console.log(res);
       })
       .catch(error => {
         if (error.code == 'auth/invalid-credential')

@@ -16,7 +16,7 @@
     <mat-form-field class="fields">
         <mat-label>Phone Number</mat-label>
         <mat-icon matSuffix>phone</mat-icon>
-        <input matInput maxlength="10" formControlName="cellphone">
+        <input matInput maxlength="10" formControlName="cellphone" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*?)\..*/g, '$1');" >
         <mat-error *ngIf="user.controls['cellphone'].errors?.['required']">This field is required</mat-error>
         <mat-error *ngIf="user.controls['cellphone'].errors?.['minlength']">Cellphone must have 10 digits</mat-error>
     </mat-form-field>
@@ -37,7 +37,7 @@
         <button
           mat-icon-button
           matSuffix
-          (click)="clickEvent()"
+          (click)="hide = !hide"
           [attr.aria-label]="'Hide password'"
         >
           <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
@@ -60,6 +60,6 @@
 
     <br>
     
-    <button [disabled]="user.invalid" *ngIf="user.value.id == ''" mat-flat-button color="primary" (click)="addUser(formDirective)">Add User</button>
-    <button [disabled]="user.invalid" *ngIf="user.value.id != ''" mat-flat-button color="primary" (click)="editUser()">Edit User</button>
+    <button type="button" [disabled]="user.invalid" *ngIf="user.value.id == ''" mat-flat-button color="primary" (click)="addUser(formDirective)">Add User</button>
+    <button type="button" [disabled]="user.invalid" *ngIf="user.value.id != ''" mat-flat-button color="primary" (click)="editUser()">Edit User</button>
 </form>

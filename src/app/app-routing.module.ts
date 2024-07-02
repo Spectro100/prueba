@@ -4,6 +4,7 @@ import { HomeComponent } from './modules/home/home.component';
 import { UserformComponent } from './modules/home/users/userform/userform.component';
 import { UserlistComponent } from './modules/home/users/userlist/userlist.component';
 import { LoginComponent } from './modules/login/login/login.component';
+import { SignupComponent } from './modules/login/signup/signup.component';
 import { authGuard } from './guards/auth.guard';
 
 const routes: Routes = [
@@ -19,6 +20,10 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'signup',
+    component: SignupComponent
   },
   {
     path: '**',
